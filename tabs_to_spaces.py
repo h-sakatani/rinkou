@@ -5,7 +5,6 @@ import os
 import sys
 import argparse
 import pandas
-import re
 
 def read_file(path):
     # textファイル1列目がcity,2列目がtownと指定
@@ -15,33 +14,23 @@ def read_file(path):
 
 # main関数を定義 (to increase readability)
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="count city name")
+    parser = argparse.ArgumentParser(description="replacecment tab to space")
     parser.add_argument("file", help="file path", type=str)
+    parser.add_argument("--newfile", help="new file name", type=str, default="newfile.txt")
 
     args = parser.parse_args()
     
     filename = args.file
-    
-    # 重複の無いcity名前のリストを作成
+    filename_txt = args.newfile
+
     df = read_file(filename)
-    cities = list(df["city"])
+    city = list(df["city"])
+    town = list(df["town"])
+    newtext = open(filename_txt, "w", encoding="utf-8")
     
-    # 空の辞書型をつくってcityをkeyにカウントしていく
-    count = 0
-    dict_city = {}
-    for city in cities:
-        if not city in dict_city:
-            dict_city[str(city)] = 1
-        else:
-            dict_city[str(city)] = dict_city[str(city)] +1
-    
-    for key, value in dict_city.items():
-        print (key+ ": count is " + str(value))
+    #文字と文字の間をspaceにして新しいテキストに記載
+    for i in range(len(df)):
+        newtext.write(str(city[i])+" "+str(town[i])+"\n")
+    newtext.close()
 
-            
     
-    
-    
-
-
-
