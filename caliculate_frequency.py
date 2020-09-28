@@ -14,12 +14,12 @@ def read_file(path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="extract second column and caliculate frequency")
     parser.add_argument("file", help="file path", type=str)
-    #parser.add_argument("--newfile", help="new file name", type=str, default="first_column_list.txt")
+    # parser.add_argument("--newfile", help="new file name", type=str, default="second_column_frequency.txt")
 
     args = parser.parse_args()
 
     filename = args.file
-    #newfilename = args.newfile
+    # newfilename = args.newfile
 
     df = read_file(filename)
     towns = list(df["town"])
@@ -33,11 +33,14 @@ if __name__ == "__main__":
         else:
             dict_town[str(town)] = dict_town[str(town)] +1
     
-    #newfile = open(newfilename, "w", encoding="utf-8")
+    # カウント回数の大きいもの順にする
+    sorted_dict_town = sorted(dict_town.items(), reverse=True, key=lambda x: x[1])
+
+    # newfile = open(newfilename, "w", encoding="utf-8")
     total = len(towns)
     # print(total)
-    for key, value in dict_town.items():
-        frequency = value/total
-        print (key+ ": frequency is " + str(frequency))
-        # newfile.write(key+ ": frequency is " + str(value/total)+"\n")
-    #newfile.close()
+    for component in sorted_dict_town:
+        frequency = component[1]/total
+        print (component[0]+ ": frequency is " + str(frequency))
+        # newfile.write(component[0]+ ": frequency is " + str(frequency)+"\n")
+    # newfile.close()
