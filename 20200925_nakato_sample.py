@@ -14,7 +14,7 @@ def read_file(path):
 # change this function that uses pandas library
 def count_lines(file_path):
     lines = read_file(file_path)
-    return len(lines)
+    return len(lines), lines
 
 # main関数を定義 (to increase readability)
 if __name__ == "__main__":
@@ -32,3 +32,4 @@ if __name__ == "__main__":
     len = count_lines(filename)
 
     print('length is {}'.format(len))
+    print(lines)
