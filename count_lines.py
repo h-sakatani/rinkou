@@ -1,4 +1,4 @@
-## python3 count_row.py address.txtで実行
+# python3 count_row.py address.txtで実行
 # importするライブラリは冒頭にまとめて記述
 import os
 import sys
