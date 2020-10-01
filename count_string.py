@@ -1,4 +1,4 @@
-## python3 tabs_to_spaces.py address.txtで実行
+## python3 count_string.py address.txtで実行
 ## --newfile optionでファイル名の指定が可能
 # importするライブラリは冒頭にまとめて記述
 import os
@@ -22,21 +22,23 @@ if __name__ == "__main__":
     
     filename = args.file
     
-    # 重複の無いcity名前のリストを作成
     df = read_file(filename)
     cities = list(df["city"])
     
     # 空の辞書型をつくってcityをkeyにカウントしていく
-    count = 0
     dict_city = {}
     for city in cities:
         if not city in dict_city:
             dict_city[str(city)] = 1
         else:
             dict_city[str(city)] = dict_city[str(city)] +1
-    
+    print(dict_city)
     for key, value in dict_city.items():
         print (key+ ": count is " + str(value))
+    
+    ##  pandasを用いた文字列のカウント
+    # vc = df["city"].value_counts()
+    # print(vc)
 
             
     
