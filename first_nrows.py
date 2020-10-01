@@ -34,3 +34,6 @@ if __name__ == "__main__":
         newtext.write(str(city[i])+" "+str(town[i])+"\n")
         print(str(city[i])+" "+str(town[i])+"\n")
     newtext.close()
+    
+    ## pandasを利用して先頭N行を出力
+    # print(df.head(nlines))

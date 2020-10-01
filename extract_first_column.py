@@ -24,11 +24,14 @@ if __name__ == "__main__":
     df = read_file(filename)
     city = list(df["city"])
     city_list = list(set(city)) #  重複を除く
-    # print(len(city_list))
-    # print(len(df))
     newtext = open(newfilename, "w", encoding="utf-8")
 
     for i in range(len(city_list)):
         newtext.write(str(city[i])+"\n")
-        #print(str(city[i])+"\n")
+        print(str(city[i])+"\n")
     newtext.close()
+
+    ## pandasを使用した1列目の重複無し文字列のファイル出力
+    # cities = df["city"].unique()
+    # with open(newfilename, mode="w") as f:
+        # f.write('\n'.join(cities)) # 改行コードとjoinメソッドで書き込み

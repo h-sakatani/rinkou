@@ -1,4 +1,4 @@
-## python3 caliculate.py address.txtで実行
+## python3 caliculate_frequency.py address.txtで実行
 # importするライブラリは冒頭にまとめて記述
 import os
 import sys
@@ -19,13 +19,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     filename = args.file
-    # newfilename = args.newfile
+    newfilename = args.newfile
 
     df = read_file(filename)
     towns = list(df["town"])
     
-
-    count = 0
     dict_town = {}
     for town in towns:
         if not town in dict_town:
@@ -36,11 +34,23 @@ if __name__ == "__main__":
     # カウント回数の大きいもの順にする
     sorted_dict_town = sorted(dict_town.items(), reverse=True, key=lambda x: x[1])
 
-    # newfile = open(newfilename, "w", encoding="utf-8")
+    newfile = open(newfilename, "w", encoding="utf-8")
     total = len(towns)
     # print(total)
     for component in sorted_dict_town:
         frequency = component[1]/total
         print (component[0]+ ": frequency is " + str(frequency))
-        # newfile.write(component[0]+ ": frequency is " + str(frequency)+"\n")
-    # newfile.close()
+        newfile.write(component[0]+ ": frequency is " + str(frequency)+"\n")
+    newfile.close()
+
+    ## pandasを使用した頻度計算
+    # value_countsはカウントの昇順を出力
+    # vc = df["town"].value_counts()
+    # total = len(df)
+    
+    # for i in range(len(vc)):
+        # frequency = vc[i]/total
+        # print(vc.index[i] + " :frequency is" + str(frequency))
+    
+
+
