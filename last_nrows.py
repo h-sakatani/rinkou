@@ -33,3 +33,8 @@ if __name__ == "__main__":
         newtext.write(str(city[count])+" "+str(town[count])+"\n")
         print(str(city[count])+" "+str(town[count])+"\n")
     newtext.close()
+    
+    ## pandasを使用した末尾N行の取得
+    # print(df.tail(nlines))
+    # newtext.write(str(df.tail(nlines)))
+    # newtext.close()
