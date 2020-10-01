@@ -22,9 +22,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     filename = args.file
-    # pandas dateaframeはゼロからはじまるので1を引く
-    mlines = args.mrows -1
-    nlines = args.nrows 
+    # rangeやpandasの行番号指定は最後のN行が含まれないため1を足す
+    mlines = args.mrows 
+    nlines = args.nrows +1
     newfilename = args.newfile
 
     df = read_file(filename)
@@ -36,3 +36,6 @@ if __name__ == "__main__":
         newtext.write(str(city[i])+" "+str(i)+"\n")
         print(str(city[i])+" "+str(town[i])+"\n")
     newtext.close()
+
+    ## pandasを使用したM行目からN行目の抽出
+    # print(df[mlines:nlines])
