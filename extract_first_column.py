@@ -27,8 +27,8 @@ if __name__ == "__main__":
     newtext = open(newfilename, "w", encoding="utf-8")
 
     for i in range(len(city_list)):
-        newtext.write(str(city[i])+"\n")
-        print(str(city[i])+"\n")
+        newtext.write(str(city_list[i])+"\n")
+        print(str(city_list[i])+"\n")
     newtext.close()
 
     ## pandasを使用した1列目の重複無し文字列のファイル出力
