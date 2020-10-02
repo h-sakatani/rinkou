@@ -28,9 +28,13 @@ if __name__ == "__main__":
     town = list(df["town"])
     newtext = open(filename_txt, "w", encoding="utf-8")
     
-    #文字と文字の間をspaceにして新しいテキストに記載
+    # 文字と文字の間をspaceにして新しいテキストに記載
     for i in range(len(df)):
-        newtext.write(str(city[i])+" "+str(town[i])+"\n")
+         newtext.write(str(city[i])+" "+str(town[i])+"\n")
     newtext.close()
-
+    
+    ## pandasを使用したスペースへの置換
+    # df = pandas.read_csv(filename, header=None, delimiter='\t')
+    # df.to_csv(filename_txt, sep=' ', header=False, index=False)
+    
     
