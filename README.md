@@ -60,7 +60,7 @@ defaltではlast_nlines.txtを出力
 例
 `caliculate_frequency.py address.txt`
 
-###`pandas_`が記載されているスクリプトはpandasで書き換えたスクリプト###
+### `pandas_`が記載されているスクリプトはpandasで書き換えたスクリプト ###
 
 ## 参考 ##
 https://github.com/icoxfog417/python_training
