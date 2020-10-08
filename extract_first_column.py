@@ -4,11 +4,22 @@ import os
 import sys
 import argparse
 import pandas
+import count_lines
 
-def read_file(path):
-    # textファイル1列目がcity,2列目がtownと指定
-    df = pandas.read_table(path, names=["city", "town"])
-    return df
+def extract_first_column(filename, newfilename):
+    df = count_lines.read_file(filename)
+    city = list(df["city"])
+    city_list = list(set(city)) #  重複を除く
+
+    newtext = open(newfilename, "w", encoding="utf-8")
+
+    for i in range(len(city_list)):
+        newtext.write(str(city_list[i])+"\n")
+        print(str(city_list[i])+"\n")
+    newtext.close()
+
+    return newtext
+
 
 # main関数を定義 (to increase readability)
 if __name__ == "__main__":
@@ -21,15 +32,9 @@ if __name__ == "__main__":
     filename = args.file
     newfilename = args.newfile
 
-    df = read_file(filename)
-    city = list(df["city"])
-    city_list = list(set(city)) #  重複を除く
-    newtext = open(newfilename, "w", encoding="utf-8")
+    newtext = extract_first_column(filename, newfilename)
 
-    for i in range(len(city_list)):
-        newtext.write(str(city_list[i])+"\n")
-        print(str(city_list[i])+"\n")
-    newtext.close()
+    
 
     ## pandasを使用した1列目の重複無し文字列のファイル出力
     # cities = df["city"].unique()

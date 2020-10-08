@@ -1,5 +1,5 @@
 ## python3 count_lines.py address.txtで実行
-# importするライブラリは冒頭にまとめて記述
+
 import os
 import sys
 import argparse
@@ -10,6 +10,11 @@ def read_file(path):
     df = pandas.read_table(path, names=["city", "town"])
     return df
 
+def count_rows(filename):
+    df = read_file(filename)
+    countrows = len(df)
+    return countrows
+
 # main関数を定義 (to increase readability)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="count lines of file using Pandas")
@@ -18,8 +23,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     filename = args.file
-    df = read_file(filename)
+    
+    countrows = count_rows(filename)
+
     
     print('file: %s' % filename)
     #dfの行数を表示
-    print('Number of lines is {}'.format(len(df)))
+    print('Number of lines is {}'.format(countrows))

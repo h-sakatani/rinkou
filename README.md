@@ -37,7 +37,7 @@ defaltではlast_nlines.txtを出力
 ## お題5　1列目の文字列を集計して標準出力する ##
 
 例
-``extract_first_column.py address.txt``<br>
+``count_string.py address.txt``<br>
 
 
 ## お題6 自然数M,Nをコマンド引数にとり、入力のうちM行目からN行目までを出力する ##
@@ -59,6 +59,8 @@ defaltではlast_nlines.txtを出力
 
 例
 `caliculate_frequency.py address.txt`
+
+###`pandas_`が記載されているスクリプトはpandasで書き換えたスクリプト###
 
 ## 参考 ##
 https://github.com/icoxfog417/python_training

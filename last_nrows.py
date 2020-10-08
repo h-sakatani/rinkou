@@ -4,11 +4,24 @@ import os
 import sys
 import argparse
 import pandas
+import count_lines
 
-def read_file(path):
-    # textファイル1列目がcity,2列目がtownと指定
-    df = pandas.read_table(path, names=["city", "town"])
-    return df
+
+def extract_lastnlines(filename, toline, newfilename):
+    df = count_lines.read_file(filename)
+    city = list(df["city"])
+    town = list(df["town"])
+
+    newtext = open(newfilename, "w", encoding="utf-8")
+
+    #  countでは最後から数えるのでマイナスを指定し、rangeは0からの範囲なので-1して後ろから数えるように指定
+    for i in range(nlines):
+        count = -(i+1)
+        newtext.write(str(city[count]) + " " + str(town[count]) + "\n")
+        print(str(city[count]) + " " + str(town[count]) + "\n")
+    newtext.close()
+
+    return newtext
 
 # main関数を定義 (to increase readability)
 if __name__ == "__main__":
@@ -23,17 +36,10 @@ if __name__ == "__main__":
     nlines = args.nrows
     newfilename = args.newfile
 
-    df = read_file(filename)
-    city = list(df["city"])
-    town = list(df["town"])
-    newtext = open(newfilename, "w", encoding="utf-8")
-    #  countでは最後から数えるのでマイナスを指定し、rangeは0からの範囲なので-1して後ろから数えるように指定
-    for i in range(nlines):
-        count = -(i+1)
-        newtext.write(str(city[count])+" "+str(town[count])+"\n")
-        print(str(city[count])+" "+str(town[count])+"\n")
-    newtext.close()
     
+    newtext = extract_lastnlines(filename, nlines, newfilename)
+    
+
     ## pandasを使用した末尾N行の取得
     # print(df.tail(nlines))
     # newtext.write(str(df.tail(nlines)))

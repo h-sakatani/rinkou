@@ -4,11 +4,23 @@ import os
 import sys
 import argparse
 import pandas
+import count_lines
 
-def read_file(path):
-    # textファイル1列目がcity,2列目がtownと指定
-    df = pandas.read_table(path, names=["city", "town"])
-    return df
+def extract_lines(filename, fromnline, newfilename):
+    df = count_lines.read_file(filename)
+    city = list(df["city"])
+    town = list(df["town"])
+
+    newtext = open(newfilename, "w", encoding="utf-8")
+    
+    # n番目までのデータを表示して新しいテキストに書き込む
+    for i in range(fromnline):
+        newtext.write(str(city[i]) + " " + str(town[i]) + "\n")
+        print(str(city[i]) + " " + str(town[i]) + "\n")
+    newtext.close()
+
+    return newtext
+
 
 # main関数を定義 (to increase readability)
 if __name__ == "__main__":
@@ -21,19 +33,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     filename = args.file
-    nlines = args.nrows
+    fromnline = args.nrows
     newfilename = args.newfile
 
-    df = read_file(filename)
-    city = list(df["city"])
-    town = list(df["town"])
-    newtext = open(newfilename, "w", encoding="utf-8")
     
-    # n番目までのデータを表示して新しいテキストに書き込む
-    for i in range(nlines):
-        newtext.write(str(city[i])+" "+str(town[i])+"\n")
-        print(str(city[i])+" "+str(town[i])+"\n")
-    newtext.close()
+    newtext = extract_lines(filename, fromnline, newfilename)
+    
     
     ## pandasを利用して先頭N行を出力
     # print(df.head(nlines))

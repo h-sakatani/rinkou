@@ -5,11 +5,21 @@ import os
 import sys
 import argparse
 import pandas
+# 自作関数使用のためのimport
+import count_lines
 
-def read_file(path):
-    # textファイル1列目がcity,2列目がtownと指定
-    df = pandas.read_table(path, names=["city", "town"])
-    return df
+def to_space(filename, filename_txt):
+    df = count_lines.read_file(filename)
+    city = list(df["city"])
+    town = list(df["town"])
+    newtext = open(filename_txt, "w", encoding="utf-8")
+    
+    # 文字と文字の間をspaceにして新しいテキストに記載
+    for i in range(len(df)):
+         newtext.write(str(city[i]) + " " + str(town[i]) + "\n")
+    newtext.close()
+
+    return newtext
 
 
 # main関数を定義 (to increase readability)
@@ -23,15 +33,8 @@ if __name__ == "__main__":
     filename = args.file
     filename_txt = args.newfile
 
-    df = read_file(filename)
-    city = list(df["city"])
-    town = list(df["town"])
-    newtext = open(filename_txt, "w", encoding="utf-8")
     
-    # 文字と文字の間をspaceにして新しいテキストに記載
-    for i in range(len(df)):
-         newtext.write(str(city[i])+" "+str(town[i])+"\n")
-    newtext.close()
+    newtext = to_space(filename, filename_txt)
     
     ## pandasを使用したスペースへの置換
     # df = pandas.read_csv(filename, header=None, delimiter='\t')

@@ -6,11 +6,27 @@ import sys
 import argparse
 import pandas
 import re
+import count_lines
 
-def read_file(path):
-    # textファイル1列目がcity,2列目がtownと指定
-    df = pandas.read_table(path, names=["city", "town"])
-    return df
+def count_string(strings):
+    # 空の辞書型をつくってcityをkeyにカウントしていく
+    dict_strings = {}
+
+    for string in strings:
+        if not string in dict_strings:
+            dict_strings[str(string)] = 1
+        else:
+            dict_strings[str(string)] = dict_strings[str(string)] + 1
+    
+    return dict_strings
+
+
+def count_cities(filename):
+    df = count_lines.read_file(filename)
+    cities = list(df["city"])
+    dict_cities = count_string(cities)
+    return dict_cities
+
 
 
 # main関数を定義 (to increase readability)
@@ -21,20 +37,14 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     filename = args.file
-    
-    df = read_file(filename)
-    cities = list(df["city"])
-    
-    # 空の辞書型をつくってcityをkeyにカウントしていく
-    dict_city = {}
-    for city in cities:
-        if not city in dict_city:
-            dict_city[str(city)] = 1
-        else:
-            dict_city[str(city)] = dict_city[str(city)] +1
-    print(dict_city)
-    for key, value in dict_city.items():
+    dict_cities = count_cities(filename)
+
+    for key, value in dict_cities.items():
         print (key+ ": count is " + str(value))
+    
+    
+    
+    
     
     ##  pandasを用いた文字列のカウント
     # vc = df["city"].value_counts()
