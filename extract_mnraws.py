@@ -4,11 +4,22 @@ import os
 import sys
 import argparse
 import pandas
+import count_lines
 
-def read_file(path):
-    # textファイル1列目がcity,2列目がtownと指定
-    df = pandas.read_table(path, names=["city", "town"])
-    return df
+def extract_fromm_ton(file, newfilename, mlines, nlines):
+
+    df = count_lines.read_file(filename)
+    city = list(df["city"])
+    town = list(df["town"])
+    newtext = open(newfilename, "w", encoding="utf-8")
+
+    for i in range(mlines, nlines):
+        newtext.write(str(city[i])+" "+str(i)+"\n")
+        print(str(city[i])+" "+str(town[i])+"\n")
+    newtext.close()
+
+    return newtext
+
 
 # main関数を定義 (to increase readability)
 if __name__ == "__main__":
@@ -26,16 +37,8 @@ if __name__ == "__main__":
     mlines = args.mrows 
     nlines = args.nrows +1
     newfilename = args.newfile
-
-    df = read_file(filename)
-    city = list(df["city"])
-    town = list(df["town"])
-    newtext = open(newfilename, "w", encoding="utf-8")
-
-    for i in range(mlines, nlines):
-        newtext.write(str(city[i])+" "+str(i)+"\n")
-        print(str(city[i])+" "+str(town[i])+"\n")
-    newtext.close()
+    
+    newtext = extract_fromm_ton(filename, newfilename, mlines, nlines)
 
     ## pandasを使用したM行目からN行目の抽出
     # print(df[mlines:nlines])
